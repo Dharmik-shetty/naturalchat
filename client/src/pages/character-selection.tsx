@@ -12,8 +12,8 @@ import type { Character } from "@/data/characters";
 
 export default function CharacterSelection() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [personalityFilter, setPersonalityFilter] = useState("");
-  const [sortBy, setSortBy] = useState("");
+  const [personalityFilter, setPersonalityFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("default");
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [showLoading, setShowLoading] = useState(false);
 
@@ -21,7 +21,7 @@ export default function CharacterSelection() {
     .filter(character => {
       const matchesSearch = character.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            character.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesPersonality = !personalityFilter || character.traits.includes(personalityFilter);
+      const matchesPersonality = !personalityFilter || personalityFilter === "all" || character.traits.includes(personalityFilter);
       return matchesSearch && matchesPersonality;
     })
     .sort((a, b) => {
@@ -109,7 +109,7 @@ export default function CharacterSelection() {
                   <SelectValue placeholder="Personality" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Types</SelectItem>
+                  <SelectItem value="all">All Types</SelectItem>
                   <SelectItem value="artistic">Artistic</SelectItem>
                   <SelectItem value="adventurous">Adventurous</SelectItem>
                   <SelectItem value="gentle">Gentle</SelectItem>
@@ -122,7 +122,7 @@ export default function CharacterSelection() {
                   <SelectValue placeholder="Sort By" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Default</SelectItem>
+                  <SelectItem value="default">Default</SelectItem>
                   <SelectItem value="name">Name</SelectItem>
                   <SelectItem value="popularity">Popularity</SelectItem>
                 </SelectContent>
