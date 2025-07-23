@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { User as FirebaseUser, onAuthStateChanged, signInWithRedirect, signOut, getRedirectResult } from "firebase/auth";
-import { auth, googleProvider } from "@/lib/firebase";
+import { User as FirebaseUser, onAuthStateChanged, signInWithRedirect, signOut } from "firebase/auth";
+import { auth, googleProvider, getRedirectResult } from "@/lib/firebase";
 import { apiRequest } from "@/lib/queryClient";
 
 interface AuthContextType {
@@ -17,32 +17,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      
-      if (user) {
-        // Sync user data with backend
-        try {
-          await apiRequest("POST", "/api/auth/sync", {
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          });
-        } catch (error) {
-          console.error("Failed to sync user data:", error);
-        }
-      }
-      
+    // Check if Firebase is properly configured
+    const isFirebaseConfigured = 
+      import.meta.env.VITE_FIREBASE_API_KEY && 
+      import.meta.env.VITE_FIREBASE_API_KEY !== "demo-key" &&
+      import.meta.env.VITE_FIREBASE_PROJECT_ID &&
+      import.meta.env.VITE_FIREBASE_PROJECT_ID !== "demo-project";
+
+    if (!isFirebaseConfigured) {
+      console.warn("Firebase not properly configured, running in demo mode");
       setLoading(false);
-    });
+      return;
+    }
 
-    // Check for redirect result
-    getRedirectResult(auth).catch((error) => {
-      console.error("Auth redirect error:", error);
-    });
+    try {
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        setUser(user);
+        
+        if (user) {
+          // Sync user data with backend
+          try {
+            await apiRequest("POST", "/api/auth/sync", {
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+            });
+          } catch (error) {
+            console.error("Failed to sync user data:", error);
+          }
+        }
+        
+        setLoading(false);
+      });
 
-    return unsubscribe;
+      // Check for redirect result
+      getRedirectResult(auth).catch((error) => {
+        console.error("Auth redirect error:", error);
+      });
+
+      return unsubscribe;
+    } catch (error) {
+      console.error("Firebase initialization error:", error);
+      setLoading(false);
+    }
   }, []);
 
   const signInWithGoogle = async () => {
