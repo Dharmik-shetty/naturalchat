@@ -7,9 +7,10 @@ import { useAuth } from "@/hooks/use-auth";
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
+  message?: string;
 }
 
-export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+export function AuthModal({ isOpen, onClose, message }: AuthModalProps) {
   const { signInWithGoogle } = useAuth();
 
   const handleGoogleSignIn = async () => {
@@ -38,7 +39,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </h2>
           
           <p className="font-inter text-white opacity-80 mb-6">
-            Sign in to save your conversations and connect with all our AI companions
+            {message || "Sign in to save your conversations and connect with all our AI companions"}
           </p>
           
           <Button

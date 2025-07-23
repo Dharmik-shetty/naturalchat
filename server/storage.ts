@@ -135,7 +135,19 @@ export class MemStorage implements IStorage {
   }
 
   async getUserByUid(uid: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(user => user.uid === uid);
+    let user = Array.from(this.users.values()).find(user => user.uid === uid);
+    
+    // Create demo user if it doesn't exist
+    if (!user && uid === "demo-user") {
+      user = await this.createUser({
+        uid: "demo-user",
+        email: "demo@example.com",
+        displayName: "Demo User",
+        photoURL: null,
+      });
+    }
+    
+    return user;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
