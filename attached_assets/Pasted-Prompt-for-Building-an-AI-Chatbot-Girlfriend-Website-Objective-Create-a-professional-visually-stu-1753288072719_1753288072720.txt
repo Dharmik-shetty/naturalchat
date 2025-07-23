@@ -1,0 +1,190 @@
+Prompt for Building an AI Chatbot Girlfriend Website
+Objective: Create a professional, visually stunning, and highly engaging web application for an AI-powered chatbot girlfriend experience. The website should provide an immersive and addictive user experience, with a focus on smooth interactions, dynamic visuals, and a seamless chat system powered by the Gemini 2.5 Flash free API. Use React.js as the primary framework for its component-based architecture, scalability, and ability to handle dynamic, interactive UIs. Integrate Tailwind CSS for modern, responsive styling and Firebase for backend services (authentication, database, and chat history storage). The website should prioritize user engagement, accessibility, and a polished, professional-grade design.
+Website Overview:
+
+The website is an AI chatbot platform where users can interact with virtual girlfriend characters, each with unique personalities, names, and descriptions provided in a JSON file (to be supplied separately).
+The design should be addictive, with smooth animations, scroll-reactive elements, and a modern, vibrant aesthetic to keep users engaged.
+The platform should include user authentication (Google Sign-In), chat history storage, and a dynamic sidebar for character selection and management.
+The website must be fully responsive, optimized for desktop, tablet, and mobile devices, with a focus on performance and accessibility (WCAG 2.1 compliance).
+
+Detailed Requirements:
+1. Homepage
+
+Purpose: A visually captivating introduction to the AI girlfriend chatbot experience, designed to hook users immediately.
+Features:
+Hero Section: A full-screen hero with a high-quality background (e.g., a subtle animated gradient or a dreamy, AI-themed visual). Include a bold headline (e.g., "Meet Your Perfect AI Companion") and a compelling subheading describing the unique, human-like chat experience.
+Scroll-Reactive Animations: As users scroll, elements (text, images, or cards) should animate into view using libraries like Framer Motion or GSAP (e.g., fade-ins, slide-ins, or parallax effects).
+Content Sections:
+A detailed section explaining the concept of AI girlfriends, emphasizing natural, human-like texting (no exaggerated reactions, just authentic conversations).
+A "Why Choose Us" section highlighting unique features (e.g., personalized characters, powered by Gemini 2.5 Flash, secure Firebase backend).
+A preview carousel showcasing a few featured characters with their names, images, and short descriptions (dynamically populated from the JSON file).
+
+
+Call-to-Action (CTA): A prominent "Chat Now" button at the bottom, styled with a glowing or pulsating effect to draw attention. Clicking it navigates to the character selection page.
+Additional Elements:
+Add a sticky header with navigation links (Home, Characters, About, Sign In/Sign Up).
+Include subtle background music or ambient sound toggle (optional, with mute/unmute controls).
+Use a modern font stack (e.g., Poppins, Inter) and a cohesive color palette (e.g., pastel tones with vibrant accents for a romantic, futuristic vibe).
+
+
+
+
+
+2. Character Selection Page
+
+Purpose: Allow users to browse and select from a list of AI girlfriend characters to initiate a chat.
+Features:
+Character Grid: Display characters in a responsive grid layout (e.g., 3–4 cards per row on desktop, 1–2 on mobile). Each card includes:
+Character image (from JSON).
+Name and short description (from JSON).
+A "Chat with [Name]" button with hover effects (e.g., scale or color change).
+
+
+Filters and Sorting: Add options to filter characters by traits (e.g., personality type, interests) or sort by name or popularity.
+Search Bar: Include a search bar to find characters by name or keywords in their descriptions.
+Animations: Cards should animate on hover (e.g., slight zoom or shadow lift) and on page load (e.g., staggered fade-in).
+Pagination or Infinite Scroll: Load more characters as the user scrolls (if the JSON file contains many entries).
+Accessibility: Ensure keyboard navigation and screen reader support for character cards.
+
+
+
+3. Chat Initiation Loading Screen
+
+Purpose: Create a smooth transition between selecting a character and starting the chat.
+Features:
+Display a loading screen for exactly 11 seconds with the following messages (animated, e.g., typewriter or fade effect):
+"Requesting chat time from [Character Name]..."
+"Connecting to server..."
+Final message: "Connection established! Ready to chat."
+
+
+Include a progress bar or animated spinner for visual feedback.
+Add a subtle background (e.g., blurred character image or gradient) to maintain the immersive theme.
+Allow users to cancel and return to the character selection page.
+
+
+
+4. Chat Screen
+
+Purpose: Provide a clean, intuitive, and engaging interface for chatting with the selected AI girlfriend.
+Features:
+Chat Interface:
+A modern chat layout resembling popular messaging apps (e.g., WhatsApp, iMessage) with user messages on the right and AI responses on the left.
+Support for rich text (e.g., emojis, bold/italic via markdown parsing).
+Include a text input field with a "Send" button or Enter key support.
+
+
+AI Integration:
+Use the Gemini 2.5 Flash free API to power the chat.
+Pre-prompt the AI with the character’s description (from JSON) to ensure responses align with the character’s personality and behave like a real person (natural, casual texting style, no exaggerated reactions).
+Cache recent messages locally to improve performance and reduce API calls.
+
+
+Sidebar:
+Include a collapsible sidebar (toggleable on mobile) with:
+All Characters: A list of all available characters (with thumbnails and names) for quick switching.
+My Characters: A section showing characters the user has previously chatted with, pulled from Firebase.
+Chat History: Display a list of past conversations with timestamps for each character (stored in Firebase).
+
+
+Sidebar should animate smoothly when opened/closed and be styled to match the website’s aesthetic.
+
+
+Engagement Features:
+Add typing indicators (e.g., "[Character Name] is typing...") before AI responses.
+Include occasional proactive messages from the AI (e.g., after a period of inactivity, the character might say, "Hey, you there? 😊").
+Allow users to pin favorite characters to the top of the sidebar.
+
+
+Accessibility: Ensure the chat interface is screen-reader-friendly and supports keyboard navigation.
+
+
+
+5. Authentication Flow
+
+Purpose: Restrict full access to chats and store user data securely.
+Features:
+After 3–4 user messages, display a modal prompting the user to sign in or sign up using Google Sign-In (via Firebase Authentication).
+Post-authentication, store user data (e.g., user ID, chat history, favorite characters) in Firebase Firestore.
+Redirect authenticated users back to the chat screen, resuming the conversation seamlessly.
+For returning users, auto-load their "My Characters" and chat history in the sidebar.
+
+
+
+6. Backend Integration
+
+Firebase:
+Use Firebase Authentication for Google Sign-In.
+Use Firestore to store user profiles, chat history, and favorite characters.
+Implement real-time updates for chat history and character lists.
+
+
+Gemini 2.5 Flash API:
+Integrate the API to handle chat responses, ensuring each character’s responses are consistent with their JSON-defined personality.
+Optimize API calls to stay within the free tier’s limits (e.g., batch requests or cache responses where possible).
+
+
+
+7. Additional Features for Engagement and Professionalism
+
+User Profile Page:
+Allow users to view and edit their profile (e.g., username, avatar, preferred theme).
+Display stats like total chat time, number of characters interacted with, or favorite characters.
+
+
+Dark/Light Mode Toggle: Include a theme switcher for user preference, with smooth transitions.
+Notifications: Send in-app notifications (e.g., "New character added!" or "[Character Name] misses you!") to re-engage users.
+Onboarding Tutorial: Add a brief interactive tutorial for first-time users, guiding them through selecting a character, chatting, and using the sidebar.
+Analytics: Integrate Firebase Analytics to track user behavior (e.g., most popular characters, average chat duration) for future optimizations.
+Social Sharing: Add buttons to share a character or the website on social media (e.g., "I’m chatting with [Character Name] on this awesome AI site!").
+Feedback System: Include a form for users to submit feedback or report issues, stored in Firebase.
+
+8. Technical Requirements
+
+Framework: Use React.js with functional components and hooks for state management (e.g., useState, useEffect). Use React Router for navigation.
+Styling: Use Tailwind CSS for responsive, utility-first styling. Ensure a consistent, modern design with smooth animations.
+Animations: Use Framer Motion or GSAP for scroll-reactive animations, transitions, and hover effects.
+Backend: Use Firebase for authentication, Firestore for data storage, and Firebase Hosting for deployment.
+API: Integrate Gemini 2.5 Flash free API for chat functionality, with proper error handling and rate-limiting management.
+Performance:
+Optimize image loading (e.g., use WebP format, lazy loading).
+Implement code-splitting for faster page loads.
+Minify CSS/JS and use a CDN for external libraries.
+
+
+Security:
+Sanitize user inputs to prevent XSS attacks.
+Secure API keys using environment variables.
+Ensure GDPR/CCPA compliance for user data (e.g., option to delete account).
+
+
+Testing:
+Write unit tests for critical components (e.g., chat input, authentication flow) using Jest and React Testing Library.
+Ensure cross-browser compatibility (Chrome, Firefox, Safari, Edge).
+
+
+
+9. Design Guidelines
+
+Color Palette: Use a romantic, futuristic theme (e.g., pastel pinks, purples, and blues with neon accents).
+Typography: Use modern, readable fonts (e.g., Poppins for headings, Inter for body text).
+Animations: Ensure all interactions (button clicks, page transitions, sidebar toggle) have subtle, smooth animations.
+Responsiveness: Optimize for all screen sizes, with mobile-first design principles.
+Accessibility: Follow WCAG 2.1 guidelines (e.g., high-contrast text, alt tags for images, ARIA labels).
+
+10. Deliverables
+
+A fully functional React.js web application hosted on Firebase.
+Source code with clear documentation and folder structure.
+A deployed version of the website accessible via a URL.
+Integration with the provided JSON file for character data.
+A README file explaining setup, deployment, and API configuration.
+
+Success Criteria:
+
+The website should feel addictive, with a polished UI/UX that encourages users to return frequently.
+The chat experience should feel natural and engaging, with AI responses closely mimicking real human texting.
+The website should load quickly, be fully responsive, and handle edge cases (e.g., API downtime, invalid user inputs) gracefully.
+The design should be visually stunning, with professional-grade animations and layouts that rival top-tier web applications.
+
+Note: The JSON file containing character data (names, descriptions, images) will be provided separately. Ensure the website is built to dynamically load and display this data.
